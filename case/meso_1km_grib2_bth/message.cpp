@@ -2,33 +2,9 @@
 #include <iostream>
 
 #include "message.h"
+#include "grib_util.h"
 
 using namespace meso_1km_post;
-
-
-std::string getString(codes_handle* handler, const std::string& key) {
-    char values[10240];
-    size_t len = sizeof(values);
-
-    values[0] = 0;
-
-    CODES_CHECK(codes_get_string(handler, key.c_str(), values, &len), nullptr);
-    // ASSERT(err)
-
-    return values;
-}
-
-double getDouble(codes_handle* handler, const std::string& key) {
-    double v = 0;
-    CODES_CHECK(codes_get_double(handler, key.c_str(), &v), nullptr);
-    return v;
-}
-
-long getLong(codes_handle* handler, const std::string& key) {
-    long v = 0;
-    CODES_CHECK(codes_get_long(handler, key.c_str(), &v), nullptr);
-    return v;
-}
 
 
 codes_handle* meso_1km_post::load_message_from_file(
@@ -54,24 +30,22 @@ codes_handle* meso_1km_post::load_message_from_file(
             break;
         }
 
-        auto count = getLong(handler, "count");
+        auto count = mofis::getLong(handler, "count");
 //        std::cout<<"message "<<count<<" ..."<<std::endl;
 
-        auto message_short_name = getString(handler, "shortName");
-        if(message_short_name != parameter.short_name) {
-//            std::cout<<"short_name "<<message_short_name<<" != "<<parameter.short_name<<std::endl;
+        if(!parameter.check(handler)) {
             codes_handle_delete(handler);
             continue;
         }
 
-        auto message_level_type = getString(handler, "typeOfLevel");
+        auto message_level_type = mofis::getString(handler, "typeOfLevel");
         if(message_level_type != level_type.name) {
 //            std::cout<<"level_type "<<message_level_type<<" != "<<level_type.name<<std::endl;
             codes_handle_delete(handler);
             continue;
         }
 
-        auto message_level = getDouble(handler, "level");
+        auto message_level = mofis::getDouble(handler, "level");
         if(message_level != level.value){
 //            std::cout<<"level "<<message_level<<" != "<<level.value<<std::endl;
             codes_handle_delete(handler);

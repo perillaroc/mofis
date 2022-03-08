@@ -9,7 +9,7 @@ find_package(eccodes REQUIRED)
 #    message(STATUS "${_variableName}=${${_variableName}}")
 #endforeach()
 
-add_executable(grib2_bth parameter.cpp level_type.cpp level.cpp message.cpp main.cpp)
+add_executable(grib2_bth main.cpp parameter.cpp level_type.cpp level.cpp message.cpp main.cpp grib_util.cpp)
 
 target_include_directories(grib2_bth PRIVATE ${eccodes_BASE_DIR}/include)
 target_link_libraries(grib2_bth PRIVATE ${eccodes_BASE_DIR}/lib64/libeccodes.so)
