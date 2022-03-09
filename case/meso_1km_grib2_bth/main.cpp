@@ -1,13 +1,12 @@
 #include <iostream>
 #include <cstdio>
 
-#include "message.h"
+#include <message.h>
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
     std::string file_path = "/g2/nwp_sp/OPER_ARCHIVE/GRAPES_MESO_1KM/Prod-grib/2022030700/ORIG/rmf.hgra.2022030700002.grb2";
-//    std::string file_path = "/g2/nwp_sp/OPER_ARCHIVE/GRAPES_MESO_1KM/Prod-grib/2022030700/BTH/Z_NAFP_C_NWPC_20220307022123_P_GRAPES_1KM_BTH_DEG0L_202203070000_02400060.grb2";
 
     mofis::Parameter parameter;
     parameter.keys = {
