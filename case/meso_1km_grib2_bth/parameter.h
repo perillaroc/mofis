@@ -1,15 +1,16 @@
 #pragma once
 #include <string>
+#include <optional>
 
 #include <eccodes.h>
+
+#include "query.h"
 
 
 namespace mofis {
 struct Parameter {
-    std::string short_name;
-    int discipline = -1;
-    int parameter_category = -1;
-    int parameter_number = -1;
+    std::optional<std::string> short_name;
+    KeyDict keys;
 
     bool check(codes_handle* handler) const;
 };

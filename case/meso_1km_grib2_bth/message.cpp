@@ -38,16 +38,12 @@ codes_handle* meso_1km_post::load_message_from_file(
             continue;
         }
 
-        auto message_level_type = mofis::getString(handler, "typeOfLevel");
-        if(message_level_type != level_type.name) {
-//            std::cout<<"level_type "<<message_level_type<<" != "<<level_type.name<<std::endl;
+        if(!level_type.check(handler)) {
             codes_handle_delete(handler);
             continue;
         }
 
-        auto message_level = mofis::getDouble(handler, "level");
-        if(message_level != level.value){
-//            std::cout<<"level "<<message_level<<" != "<<level.value<<std::endl;
+        if(!level.check(handler)){
             codes_handle_delete(handler);
             continue;
         }

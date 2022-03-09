@@ -6,16 +6,20 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    std::string file_path = "/g1/COMMONDATA/OPER/NWPC/GRAPES_GFS_GMF/Prod-grib/2022030700/ORIG/gmf.gra.2022030700072.grb2";
+    std::string file_path = "/g2/nwp_sp/OPER_ARCHIVE/GRAPES_MESO_1KM/Prod-grib/2022030700/ORIG/rmf.hgra.2022030700002.grb2";
+//    std::string file_path = "/g2/nwp_sp/OPER_ARCHIVE/GRAPES_MESO_1KM/Prod-grib/2022030700/BTH/Z_NAFP_C_NWPC_20220307022123_P_GRAPES_1KM_BTH_DEG0L_202203070000_02400060.grb2";
 
     mofis::Parameter parameter;
-    parameter.short_name = "t";
+    parameter.keys = {
+            {"discipline", 0},
+            {"parameterCategory", 3},
+            {"parameterNumber", 225}
+    };
 
     mofis::LevelType level_type;
-    level_type.name = "isobaricInhPa";
+    level_type.name = "surface";
 
     mofis::Level level;
-    level.value = 850;
 
     auto handler = meso_1km_post::load_message_from_file(file_path, parameter, level_type, level);
 

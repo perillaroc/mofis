@@ -1,11 +1,15 @@
 #pragma once
-#include <string>
-#include <map>
+#include <eccodes.h>
+#include <optional>
+
+#include "query.h"
 
 
 namespace mofis {
 struct Level {
-    double value;
-    std::map<std::string, std::string> keys;
+    std::optional<double> value;
+    KeyDict keys;
+
+    bool check(codes_handle* handler) const;
 };
 }
