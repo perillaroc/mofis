@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <iostream>
 
+#include <fmt/format.h>
+
 #include "message.h"
 #include "grib_util.h"
 
@@ -31,26 +33,30 @@ codes_handle* meso_1km_post::load_message_from_file(
         }
 
         auto count = mofis::getLong(handler, "count");
-//        std::cout<<"message "<<count<<" ..."<<std::endl;
+//        fmt::print("check message {}...", count);
 
         if(!parameter.check(handler)) {
             codes_handle_delete(handler);
+//            fmt::print("failed\n");
             continue;
         }
 
         if(!level_type.check(handler)) {
             codes_handle_delete(handler);
+//            fmt::print("failed\n");
             continue;
         }
 
         if(!level.check(handler)){
             codes_handle_delete(handler);
+//            fmt::print("failed\n");
             continue;
         }
 
         auto new_handler = codes_handle_clone(handler);
         codes_handle_delete(handler);
         handler = new_handler;
+//        fmt::print("success\n");
         break;
     }
 
