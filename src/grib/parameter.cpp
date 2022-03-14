@@ -18,3 +18,11 @@ bool mofis::Parameter::check(codes_handle* handler) const {
 
     return checkKeys(handler, keys);
 }
+
+mofis::Parameter::Parameter(const mofis::KeyDict &values) {
+    keys = values;
+}
+
+mofis::Parameter::Parameter(const std::string &short_name): short_name(short_name) {
+
+}

@@ -10,3 +10,11 @@ bool mofis::LevelType::check(codes_handle *handler) const {
 
     return checkKeys(handler, keys);
 }
+
+mofis::LevelType::LevelType(const std::string &value): name(value) {
+
+}
+
+mofis::LevelType::LevelType(const mofis::KeyDict &values) {
+    keys = values;
+}

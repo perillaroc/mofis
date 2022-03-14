@@ -10,3 +10,13 @@ bool mofis::Level::check(codes_handle *handler) const {
 
     return checkKeys(handler, keys);
 }
+
+mofis::Level::Level(double value):
+    value(value)
+{
+
+}
+
+mofis::Level::Level(const mofis::KeyDict &value) {
+    keys = value;
+}
